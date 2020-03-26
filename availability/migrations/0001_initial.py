@@ -16,8 +16,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('name_uk', models.CharField(max_length=255, null=True, verbose_name='Name')),
-                ('name_ru', models.CharField(max_length=255, null=True, verbose_name='Name')),
                 ('is_default', models.BooleanField(default=False, verbose_name='Is default')),
                 ('color', models.CharField(blank=True, max_length=100, verbose_name='Color')),
             ],
