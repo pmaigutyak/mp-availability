@@ -10,4 +10,9 @@ class AvailabilityManager(models.Manager):
         return AvailabilityQuerySet(self.model, using=self._db)
 
     def default(self):
-        return self.get_queryset().default()
+        try:
+            return self.get_queryset().default()
+        except Exception:
+            pass
+
+        return None
