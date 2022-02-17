@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.forms import ModelChoiceField
 from django.utils.translation import ugettext_lazy as _
 
 from availability.managers import AvailabilityManager
@@ -25,6 +26,22 @@ class Availability(models.Model):
         verbose_name_plural = _('Availability')
 
 
+class AvailabilityFormField(ModelChoiceField):
+
+    def __init__(self, **kwargs):
+
+        label = kwargs.pop('label', _('Availability'))
+
+        kwargs.pop('initial', '')
+        kwargs.pop('queryset', '')
+
+        super().__init__(
+            label=label,
+            initial=Availability.objects.default(),
+            queryset=Availability.objects.all(),
+            **kwargs)
+
+
 class AvailabilityField(models.ForeignKey):
 
     def __init__(
@@ -44,3 +61,8 @@ class AvailabilityField(models.ForeignKey):
             blank=blank,
             *args,
             **kwargs)
+
+    def formfield(self, *, using=None, **kwargs):
+        defaults = {'form_class': AvailabilityFormField}
+        defaults.update(kwargs)
+        return super().formfield(using=using, **defaults)

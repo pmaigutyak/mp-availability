@@ -16,3 +16,4 @@ static-collect
 debug.log
 dist
 django_mp_availability.egg-info
+build
